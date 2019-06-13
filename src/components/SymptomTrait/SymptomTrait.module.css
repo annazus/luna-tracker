@@ -1,0 +1,48 @@
+.SymptomTrait {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0px;
+}
+
+.SymptomTraitCard {
+  position: relative;
+  background-color: white;
+  border: 3px solid rgb(121, 151, 34);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: white;
+  height: 90px;
+  width: 90px;
+  margin-bottom: 0px;
+  padding: 0px;
+}
+.SymptomTraitCardSelected {
+  background-color: rgb(121, 151, 34);
+}
+.SymptomTraitLabel {
+  position: absolute;
+
+  color: rgb(121, 151, 34);
+  margin-top: 5px;
+  font-weight: bold;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+}
+.SymptomTraitLabelSelected {
+  color: white;
+  font-weight: bold;
+}
+
+.SymptomTraitDelete {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: left;
+}

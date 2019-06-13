@@ -1,0 +1,18 @@
+.SymptomTraits {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+  margin: 20px auto;
+}
+
+.SymptomTrait {
+  margin-bottom: 10px;
+}
+@media (min-width: 500px) {
+  .SymptomTraits {
+    width: 500px;
+  }
+}

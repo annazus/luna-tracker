@@ -1,0 +1,36 @@
+.SymptomsRow {
+  margin: 0 auto;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.Symptoms {
+  width: 80%;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.SymptomsArrow {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+  margin: 10px 10px;
+  color: rgb(175, 175, 175);
+}
+
+@media (min-width: 425px) {
+  .Symptoms {
+    width: 340px;
+  }
+}
+@media (min-width: 500) {
+  .SymptomsRow {
+    width: 550px;
+  }
+}

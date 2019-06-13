@@ -1,0 +1,30 @@
+.selectedDay {
+  background-color: rgb(121, 151, 34);
+  border-radius: 65px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  left: 50%;
+  height: 68px;
+  justify-content: space-around;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 68px;
+  z-index: 100;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.selectedDay span {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.label {
+  margin-top: 10px;
+}
+
+.numeral {
+  padding-left: 8px;
+}

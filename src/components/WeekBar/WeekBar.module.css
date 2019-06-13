@@ -1,0 +1,47 @@
+.WeekBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: "center";
+  width: 380px;
+  margin: 10px auto;
+}
+.Mon {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 0;
+  margin: 5px 20px;
+}
+.Month {
+  width: 100%;
+  margin: 5px 20px;
+  color: rgb(99, 113, 124);
+  font-weight: light;
+  display: inline-block;
+  text-align: left;
+  margin-bottom: 20px;
+}
+.WeekBarControls {
+  width: 100%;
+  align-items: "center";
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.WeekBarControl {
+  font-size: 15px;
+  font-weight: bold;
+  color: gray;
+  background-color: white;
+  border: none;
+  outline: 0px;
+}
+
+.WeekBarDays {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

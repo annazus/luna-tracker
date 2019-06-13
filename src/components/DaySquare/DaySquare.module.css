@@ -1,0 +1,46 @@
+.DaySquare {
+  align-items: center;
+  color: rgb(99, 113, 124);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.DayOfWeekLabel {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.DayContainer {
+  position: relative;
+}
+.Day {
+  background-color: rgb(175, 175, 175);
+  border-width: 0px;
+  height: 45px;
+  position: relative;
+  outline: none;
+  width: 45px;
+  /*     
+  green: #79b298;
+  blue: rgb(15, 109, 136);
+  lightblue: rbg(181, 217, 225);
+  color: rgb(244, 248, 247);
+    grey:rgb(175,175,175)
+  lightgray: rbg(202, 206, 210);
+  green: rgb(121, 151, 34);
+
+  red: rgb(218, 34, 43);
+  orange: rgb(252, 77, 6);
+  yellow: rgb(252, 184, 8); */
+}
+
+.DayDisabled {
+  background-color: rgb(244, 248, 247);
+}
+.DayLabel {
+  bottom: 0px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  position: absolute;
+  right: 0px;
+}
