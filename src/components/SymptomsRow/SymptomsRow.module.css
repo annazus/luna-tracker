@@ -9,18 +9,22 @@
 }
 
 .Symptoms {
-  width: 80%;
+  flex-grow: 2;
   align-items: center;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 }
 .SymptomsArrow {
+  flex-grow: 1;
   display: inline-block;
   font-weight: bold;
   font-size: 24px;
   text-align: center;
   margin: 10px 10px;
+  border: none;
+  outline: 0px;
+  background-color: transparent;
   color: rgb(175, 175, 175);
 }
 

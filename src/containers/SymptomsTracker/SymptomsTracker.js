@@ -5,6 +5,10 @@ import SymptomTraits from "../../components/SymptomTraits";
 import Paper from "../../components/Paper";
 const SymptomsTracker = () => {
   const [currentSymptom, setCurrentSymptom] = useState("Bleeding");
+  const [currentSymptomPage, setCurrentSymptomPage] = useState(0);
+  const [forwardArrowDisabled, setForwardArrowDisabled] = useState(false);
+  const [backArrowDisabled, setbackArrowDisabled] = useState(true);
+
   const [currentDay, setCurrentDay] = useState("20190611");
   const [mySymptoms, setMySymptoms] = useState({
     "20190610": { Bleeding: ["Light"], Pain: ["Cramp", "Ovulation"] },
@@ -43,6 +47,31 @@ const SymptomsTracker = () => {
     }
   });
 
+  const scrollSymptomsHandler = forward => {
+    console.log("scrollSymptomsHandler");
+    const _symptoms = Object.keys(symptoms);
+    let newPage;
+    if (forward) {
+      if (currentSymptomPage * 3 + 3 < _symptoms.length) {
+        newPage = currentSymptomPage + 1;
+      }
+    } else {
+      if (currentSymptomPage > 0) {
+        newPage = currentSymptomPage - 1;
+      }
+    }
+    setCurrentSymptomPage(newPage);
+
+    if (newPage === 0) {
+      setbackArrowDisabled(true);
+    } else {
+      setbackArrowDisabled(false);
+    }
+
+    if (newPage * 3 + 3 < _symptoms.length) {
+      setForwardArrowDisabled(false);
+    } else setForwardArrowDisabled(true);
+  };
   const fetchMySymptomTraits = (date, symptom) => {
     console.log("mySymptoms", mySymptoms);
     const getMySymptomsForThisDate = mySymptoms[date];
@@ -115,9 +144,15 @@ const SymptomsTracker = () => {
       <WeekBar selectDayHandler={date => setCurrentDay(date)} />
       <Paper>
         <SymptomsRow
-          symptomList={Object.keys(symptoms).slice(0, 3)}
+          symptomList={Object.keys(symptoms).slice(
+            currentSymptomPage * 3,
+            currentSymptomPage * 3 + 3
+          )}
           selectedSymptom={currentSymptom}
           clickHandler={symptomClickHandler}
+          forwardArrowDisabled={forwardArrowDisabled}
+          backArrowDisabled={backArrowDisabled}
+          scrollSymptoms={forward => scrollSymptomsHandler(forward)}
         />
         <SymptomTraits
           symptom={currentSymptom}
@@ -125,6 +160,7 @@ const SymptomsTracker = () => {
           values={fetchMySymptomTraits(currentDay, currentSymptom)}
           isExclusive={symptoms[currentSymptom].values}
           clickHandler={symptomTraitClickHandler}
+          scrol
         />
       </Paper>
     </main>

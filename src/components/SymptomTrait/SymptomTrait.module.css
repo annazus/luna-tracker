@@ -24,7 +24,7 @@
 }
 .SymptomTraitLabel {
   position: absolute;
-
+  font-size: 14px;
   color: rgb(121, 151, 34);
   margin-top: 5px;
   font-weight: bold;

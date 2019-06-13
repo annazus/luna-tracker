@@ -2,7 +2,14 @@ import React from "react";
 import Symptom from "../Symptom";
 import classes from "./SymptomsRow.module.css";
 
-const SymptomsRow = ({ symptomList, selectedSymptom, clickHandler }) => {
+const SymptomsRow = ({
+  symptomList,
+  selectedSymptom,
+  clickHandler,
+  scrollSymptoms,
+  backArrowDisabled = true,
+  forwardArrowDisabled = true
+}) => {
   const symptoms = symptomList.map((item, i) => (
     <Symptom
       label={item}
@@ -13,9 +20,27 @@ const SymptomsRow = ({ symptomList, selectedSymptom, clickHandler }) => {
   ));
   return (
     <div className={classes.SymptomsRow}>
-      <span className={classes.SymptomsArrow}>{"<"}</span>
+      {!backArrowDisabled ? (
+        <button
+          className={classes.SymptomsArrow}
+          onClick={() => scrollSymptoms(false)}
+        >
+          {"<"}
+        </button>
+      ) : (
+        <div className={classes.SymptomsArrow} />
+      )}
       <div className={classes.Symptoms}>{symptoms}</div>
-      <span className={classes.SymptomsArrow}>{">"}</span>
+      {!forwardArrowDisabled ? (
+        <button
+          className={classes.SymptomsArrow}
+          onClick={() => scrollSymptoms(true)}
+        >
+          {">"}
+        </button>
+      ) : (
+        <div className={classes.SymptomsArrow} />
+      )}
     </div>
   );
 };
