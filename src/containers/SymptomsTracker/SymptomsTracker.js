@@ -10,11 +10,13 @@ const SymptomsTracker = () => {
   const [backArrowDisabled, setbackArrowDisabled] = useState(true);
 
   const [currentDay, setCurrentDay] = useState("20190611");
-  const [mySymptoms, setMySymptoms] = useState({
-    "20190610": { Bleeding: ["Light"], Pain: ["Cramp", "Ovulation"] },
+  const [mySymptoms, setMySymptoms] = useState();
 
-    "20190611": { Bleeding: ["Spotting"], Pain: ["Cramp", "Headache"] }
-  });
+  //     {
+  //     "20190610": { Bleeding: ["Light"], Pain: ["Cramp", "Ovulation"] },
+
+  //     "20190611": { Bleeding: ["Spotting"], Pain: ["Cramp", "Headache"] }
+  //   }
   const [symptoms] = useState({
     Bleeding: {
       values: ["Light", "Medium", "Heavy", "Spotting"],
@@ -73,8 +75,10 @@ const SymptomsTracker = () => {
     } else setForwardArrowDisabled(true);
   };
   const fetchMySymptomTraits = (date, symptom) => {
-    console.log("mySymptoms", mySymptoms);
-    const getMySymptomsForThisDate = mySymptoms[date];
+    console.log("mySymptoms", date);
+    let getMySymptomsForThisDate;
+    if (!mySymptoms) getMySymptomsForThisDate = {};
+    else getMySymptomsForThisDate = mySymptoms[date];
     const getMyValuesForThisSymptom = getMySymptomsForThisDate
       ? getMySymptomsForThisDate[symptom]
       : null;
@@ -87,17 +91,20 @@ const SymptomsTracker = () => {
           ? true
           : false
     }));
-    console.log(mySymptomTraits);
     return mySymptomTraits;
   };
 
   const symptomPage = 0;
 
   const symptomTraitClickHandler = (symptom, value) => {
-    console.log(mySymptoms);
-
-    console.log(currentDay, symptom, value);
-    if (
+    if (!mySymptoms) {
+      setMySymptoms({
+        ...mySymptoms,
+        [currentDay]: {
+          [symptom]: [value]
+        }
+      });
+    } else if (
       !mySymptoms[currentDay] ||
       !mySymptoms[currentDay][symptom] ||
       !mySymptoms[currentDay][symptom].includes(value)
