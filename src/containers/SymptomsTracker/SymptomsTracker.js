@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import WeekBar from "../../components/WeekBar";
 import SymptomsRow from "../../components/SymptomsRow";
 import SymptomTraits from "../../components/SymptomTraits";
 import Paper from "../../components/Paper";
+import useClient from "../../useClient";
+import SymptomsContext from "../../SymptomsContext";
+import { fetchSymptoms, fetchUserSymptomDetails } from "../../actions/actions";
 const SymptomsTracker = () => {
+  const { state, dispatch } = useContext(SymptomsContext);
+
   const [currentSymptom, setCurrentSymptom] = useState("Bleeding");
   const [currentSymptomPage, setCurrentSymptomPage] = useState(0);
   const [forwardArrowDisabled, setForwardArrowDisabled] = useState(false);
@@ -48,6 +53,20 @@ const SymptomsTracker = () => {
       isExclusive: true
     }
   });
+  useEffect(() => {
+    getSymptoms();
+    getUserSymptoms();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const client = useClient();
+
+  const getSymptoms = async () => {
+    await fetchSymptoms(client, dispatch);
+  };
+  const getUserSymptoms = async date => {
+    await fetchUserSymptomDetails(client, dispatch);
+  };
 
   const scrollSymptomsHandler = forward => {
     console.log("scrollSymptomsHandler");

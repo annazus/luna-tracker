@@ -1,30 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
+import SymptomContext from "../../SymptomsContext";
 import DaySquare from "../DaySquare";
 import classes from "./WeekBar.module.css";
-const WeekBar = ({ selectDayHandler }) => {
-  const [today] = useState(moment());
-  const [currentDay, setCurrentDay] = useState(moment().format("YYYYMMDD"));
+import { selectDate } from "../../actions/actions";
+const WeekBar = () => {
+  const [today] = useState(moment().format("YYYYMMDD"));
+
   const [weekStartingDay, setWeekStartingDay] = useState(
     moment()
       .day(0)
       .format("YYYYMMDD")
   );
-  const _clickHandler = date => {
-    setCurrentDay(date);
-    selectDayHandler(date);
+
+  const { dispatch, state } = useContext(SymptomContext);
+
+  useEffect(() => {
+    selectCurrentDateHandler(today);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const selectCurrentDateHandler = date => {
+    selectDate(dispatch, date);
   };
 
-  const monthCalculator = weekStartingDay => {
+  const createCalendarHeader = weekStartingDay => {
     const startingDay = moment(weekStartingDay);
     const weekEndingDay = moment(startingDay).add(6, "days");
+
     let header;
-    console.log(
-      "startingDay",
-      startingDay.format("YYYYMMDD"),
-      weekEndingDay.format("YYYYMMDD")
-    );
-    console.log(startingDay.isSame(weekEndingDay, "month"));
+
     if (startingDay.isSame(weekEndingDay, "month")) {
       header = moment(startingDay).format("MMMM YYYY");
     } else {
@@ -35,8 +40,10 @@ const WeekBar = ({ selectDayHandler }) => {
         " " +
         moment(startingDay).format("YYYY");
     }
+
     return header;
   };
+
   const moveOneWeek = (forward = true) => {
     const days = forward ? 7 : -7;
     setWeekStartingDay(
@@ -55,6 +62,7 @@ const WeekBar = ({ selectDayHandler }) => {
       return false;
     else return true;
   };
+
   const content = () =>
     ["S", "M", "T", "W", "T", "F", "S"].map((item, i) => {
       return (
@@ -67,14 +75,14 @@ const WeekBar = ({ selectDayHandler }) => {
           dayOfMonth={moment(weekStartingDay)
             .day(i)
             .format("D")}
-          isSelected={moment(currentDay).isSame(
+          isSelected={moment(state.selectedDate).isSame(
             moment(weekStartingDay).day(i),
             "day"
           )}
           isDisabled={moment(weekStartingDay)
             .day(i)
             .isAfter(today)}
-          clickHandler={_clickHandler}
+          clickHandler={selectCurrentDateHandler}
           date={moment(weekStartingDay)
             .day(i)
             .format("YYYYMMDD")}
@@ -84,7 +92,7 @@ const WeekBar = ({ selectDayHandler }) => {
 
   return (
     <div className={classes.WeekBar}>
-      <h3 className={classes.Month}>{monthCalculator(weekStartingDay)}</h3>
+      <h3 className={classes.Month}>{createCalendarHeader(weekStartingDay)}</h3>
       <div className={classes.WeekBarControls}>
         <button
           className={classes.WeekBarControl}
