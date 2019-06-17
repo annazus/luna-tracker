@@ -1,6 +1,6 @@
 import React from "react";
-import classes from "./SymptomTrait.module.css";
-const SymptomTrait = ({ label, selected, clickHandler, className }) => {
+import classes from "./SymptomDetail.module.css";
+const SymptomDetail = ({ label, selected, clickHandler, className }) => {
   const cardClasses = selected
     ? [classes.SymptomTraitCard, classes.SymptomTraitCardSelected]
     : [classes.SymptomTraitCard];
@@ -17,4 +17,4 @@ const SymptomTrait = ({ label, selected, clickHandler, className }) => {
     </div>
   );
 };
-export default SymptomTrait;
+export default SymptomDetail;

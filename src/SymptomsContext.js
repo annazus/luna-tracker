@@ -3,8 +3,8 @@ import { createContext } from "react";
 const context = createContext({
   trackedSymptoms: [],
   mySymptomHistory: [],
-  currentSelectedSymptom: "",
-  currentWeek: null
+  selectedSymptom: "",
+  isLoading: false
 });
 
 export { context as default };

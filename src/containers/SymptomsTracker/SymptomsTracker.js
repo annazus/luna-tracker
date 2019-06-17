@@ -1,58 +1,22 @@
 import React, { useState, useEffect, useContext } from "react";
 import WeekBar from "../../components/WeekBar";
 import SymptomsRow from "../../components/SymptomsRow";
-import SymptomTraits from "../../components/SymptomTraits";
+import SymptomDetails from "../../components/SymptomDetails";
 import Paper from "../../components/Paper";
 import useClient from "../../useClient";
 import SymptomsContext from "../../SymptomsContext";
-import { fetchSymptoms, fetchUserSymptomDetails } from "../../actions/actions";
+import {
+  fetchSymptoms,
+  fetchUserSymptomDetails,
+  selectSymptom,
+  setLoaded,
+  setLoading,
+  createUserSymptomDetail,
+  deleteUserSymptomDetail
+} from "../../actions/actions";
 const SymptomsTracker = () => {
   const { state, dispatch } = useContext(SymptomsContext);
 
-  const [currentSymptom, setCurrentSymptom] = useState("Bleeding");
-  const [currentSymptomPage, setCurrentSymptomPage] = useState(0);
-  const [forwardArrowDisabled, setForwardArrowDisabled] = useState(false);
-  const [backArrowDisabled, setbackArrowDisabled] = useState(true);
-
-  const [currentDay, setCurrentDay] = useState("20190611");
-  const [mySymptoms, setMySymptoms] = useState();
-
-  //     {
-  //     "20190610": { Bleeding: ["Light"], Pain: ["Cramp", "Ovulation"] },
-
-  //     "20190611": { Bleeding: ["Spotting"], Pain: ["Cramp", "Headache"] }
-  //   }
-  const [symptoms] = useState({
-    Bleeding: {
-      values: ["Light", "Medium", "Heavy", "Spotting"],
-      isExclusive: true
-    },
-    Pain: {
-      values: ["Cramp", "Headache", "Ovulation", "Tender Breasts"],
-      isExclusive: false
-    },
-    Emotions: {
-      values: ["Happy", "Sensitive", "Sad", "PMS"],
-      isExclusive: false
-    },
-    Sleep: {
-      values: [
-        "0 to 3 hours",
-        "3 to 6 hours",
-        "6 to 9 hours",
-        "9 hours or more"
-      ],
-      isExclusive: true
-    },
-    Sex: {
-      values: ["Unprotected", "Protected", "High Sex Drive", "Withdrawal"],
-      isExclusive: false
-    },
-    Energy: {
-      values: ["Energized", "High", "Low", "Exhausted"],
-      isExclusive: true
-    }
-  });
   useEffect(() => {
     getSymptoms();
     getUserSymptoms();
@@ -63,132 +27,88 @@ const SymptomsTracker = () => {
 
   const getSymptoms = async () => {
     await fetchSymptoms(client, dispatch);
+    console.log("getSymptoms", state.trackedSymptoms);
   };
-  const getUserSymptoms = async date => {
+  const getUserSymptoms = async () => {
     await fetchUserSymptomDetails(client, dispatch);
   };
 
-  const scrollSymptomsHandler = forward => {
-    console.log("scrollSymptomsHandler");
-    const _symptoms = Object.keys(symptoms);
-    let newPage;
-    if (forward) {
-      if (currentSymptomPage * 3 + 3 < _symptoms.length) {
-        newPage = currentSymptomPage + 1;
-      }
-    } else {
-      if (currentSymptomPage > 0) {
-        newPage = currentSymptomPage - 1;
-      }
-    }
-    setCurrentSymptomPage(newPage);
-
-    if (newPage === 0) {
-      setbackArrowDisabled(true);
-    } else {
-      setbackArrowDisabled(false);
-    }
-
-    if (newPage * 3 + 3 < _symptoms.length) {
-      setForwardArrowDisabled(false);
-    } else setForwardArrowDisabled(true);
-  };
-  const fetchMySymptomTraits = (date, symptom) => {
-    console.log("mySymptoms", date);
-    let getMySymptomsForThisDate;
-    if (!mySymptoms) getMySymptomsForThisDate = {};
-    else getMySymptomsForThisDate = mySymptoms[date];
-    const getMyValuesForThisSymptom = getMySymptomsForThisDate
-      ? getMySymptomsForThisDate[symptom]
-      : null;
-
-    const getValuesForThisSymptom = symptoms[symptom].values;
-
-    const mySymptomTraits = getValuesForThisSymptom.map(value => ({
-      [value]:
-        getMyValuesForThisSymptom && getMyValuesForThisSymptom.includes(value)
-          ? true
-          : false
-    }));
-    return mySymptomTraits;
+  const getSelectedSymptomDetails = symptom => {
+    console.log("symptomid", symptom);
+    if (symptom === "") return [];
+    const selectedNode = state.trackedSymptoms.find(
+      element => element.id === symptom
+    );
+    if (selectedNode) {
+      return selectedNode.symptomDetails;
+    } else return [];
   };
 
-  const symptomPage = 0;
-
-  const symptomTraitClickHandler = (symptom, value) => {
-    if (!mySymptoms) {
-      setMySymptoms({
-        ...mySymptoms,
-        [currentDay]: {
-          [symptom]: [value]
-        }
-      });
-    } else if (
-      !mySymptoms[currentDay] ||
-      !mySymptoms[currentDay][symptom] ||
-      !mySymptoms[currentDay][symptom].includes(value)
-    ) {
-      if (symptoms[symptom].isExclusive) {
-        setMySymptoms({
-          ...mySymptoms,
-          [currentDay]: {
-            ...mySymptoms[currentDay],
-            [symptom]: [value]
-          }
-        });
-      } else {
-        setMySymptoms({
-          ...mySymptoms,
-          [currentDay]: {
-            ...mySymptoms[currentDay],
-            [symptom]: mySymptoms[currentDay]
-              ? mySymptoms[currentDay][symptom]
-                ? mySymptoms[currentDay][symptom].concat(value)
-                : []
-              : [value]
-          }
-        });
-      }
-    } else {
-      setMySymptoms({
-        ...mySymptoms,
-        [currentDay]: {
-          ...mySymptoms[currentDay],
-          [symptom]: mySymptoms[currentDay][symptom].filter(
-            item => item !== value
-          )
-        }
-      });
-    }
+  const selectSymptomHandler = symptom => {
+    selectSymptom(dispatch, symptom);
   };
-  const symptomClickHandler = symptom => {
-    setCurrentSymptom(symptom);
-    console.log(symptom);
+  console.log(
+    "tracked",
+    state.trackedSymptoms.length > 0 ? state.trackedSymptoms : []
+  );
+
+  const getUserDetails = (date, symptom, symptomHistory) => {
+    console.log("getUserDetails", symptomHistory, date, symptom);
+    if (!date || !symptom || !symptomHistory) return [];
+    const userList = symptomHistory.filter(element => {
+      console.log(
+        "comparing",
+        element.date,
+        date,
+        element.symptomDetail.symptom.id,
+        symptom.id
+      );
+      return (
+        element.date === date && element.symptomDetail.symptom.id === symptom.id
+      );
+    });
+    return userList;
+  };
+
+  const addSymptomDetail = async symptomDetailId => {
+    console.log("addSymptomDetail", symptomDetailId);
+    await createUserSymptomDetail(
+      client,
+      dispatch,
+      "a090977a-2325-4681-aa1e-55dd821a7319",
+      symptomDetailId,
+      state.selectedDate
+    );
+  };
+  const removeSymptomDetail = userSymptomDetailId => {
+    deleteUserSymptomDetail(client, dispatch, userSymptomDetailId);
   };
   return (
     <main>
-      <WeekBar selectDayHandler={date => setCurrentDay(date)} />
-      <Paper>
-        <SymptomsRow
-          symptomList={Object.keys(symptoms).slice(
-            currentSymptomPage * 3,
-            currentSymptomPage * 3 + 3
-          )}
-          selectedSymptom={currentSymptom}
-          clickHandler={symptomClickHandler}
-          forwardArrowDisabled={forwardArrowDisabled}
-          backArrowDisabled={backArrowDisabled}
-          scrollSymptoms={forward => scrollSymptomsHandler(forward)}
-        />
-        <SymptomTraits
-          symptom={currentSymptom}
-          //   values={symptoms[currentSymptom].values}
-          values={fetchMySymptomTraits(currentDay, currentSymptom)}
-          isExclusive={symptoms[currentSymptom].values}
-          clickHandler={symptomTraitClickHandler}
-          scrol
-        />
-      </Paper>
+      <WeekBar />
+      {state.isLoading ? null : (
+        <Paper>
+          <SymptomsRow
+            symptomList={state.trackedSymptoms}
+            selectSymptomHandler={selectSymptomHandler}
+            selectedSymptom={state.selectedSymptom}
+          />
+          {state.selectedSymptom ? (
+            <SymptomDetails
+              symptomId={state.selectedSymptom.id}
+              isExclusive={state.selectedSymptom.isExclusive}
+              symptomDetails={state.selectedSymptom.symptomDetails}
+              userSymptomDetails={getUserDetails(
+                state.selectedDate,
+                state.selectedSymptom,
+                state.mySymptomHistory
+              )}
+              addSymptomDetail={addSymptomDetail}
+              removeSymptomDetail={removeSymptomDetail}
+            />
+          ) : null}
+        </Paper>
+      )}
     </main>
   );
 };

@@ -32,10 +32,12 @@ export const USER_SYMPTOMS_QUERY = gql`
         name
       }
       date
+      id
       symptomDetail {
         id
         name
         symptom {
+          id
           name
         }
       }
