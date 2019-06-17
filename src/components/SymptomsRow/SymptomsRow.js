@@ -9,9 +9,21 @@ const SymptomsRow = ({
   selectedSymptom
 }) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [backArrowDisabled, setbackArrowDisabled] = useState(false);
-  const [forwardArrowDisabled, setForwardArrowDisabled] = useState(false);
 
+  const isScrollArrowDisabled = isForward => {
+    if (isForward) {
+      if (
+        currentPage * SYMPTOM_PAGE_SIZE + SYMPTOM_PAGE_SIZE <
+        symptomList.length
+      ) {
+        return false;
+      } else return true;
+    } else {
+      if (currentPage === 0) {
+        return true;
+      } else return false;
+    }
+  };
   const scrollSymptomsHandler = forward => {
     let newPage;
     if (forward) {
@@ -20,16 +32,10 @@ const SymptomsRow = ({
         symptomList.length
       ) {
         newPage = currentPage + 1;
-        setForwardArrowDisabled(false);
-      } else {
-        setForwardArrowDisabled(true);
       }
     } else {
       if (currentPage > 0) {
         newPage = setCurrentPage - 1;
-        setbackArrowDisabled(false);
-      } else {
-        setbackArrowDisabled(true);
       }
     }
     setCurrentPage(newPage);
@@ -46,7 +52,7 @@ const SymptomsRow = ({
 
   return (
     <div className={classes.SymptomsRow}>
-      {!backArrowDisabled ? (
+      {!isScrollArrowDisabled(false) ? (
         <button
           className={classes.SymptomsArrow}
           onClick={() => scrollSymptomsHandler(false)}
@@ -57,7 +63,7 @@ const SymptomsRow = ({
         <div className={classes.SymptomsArrow} />
       )}
       <div className={classes.Symptoms}>{symptomsContent}</div>
-      {!forwardArrowDisabled ? (
+      {!isScrollArrowDisabled(true) ? (
         <button
           className={classes.SymptomsArrow}
           onClick={() => scrollSymptomsHandler(true)}
