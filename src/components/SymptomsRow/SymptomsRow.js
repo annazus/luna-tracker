@@ -35,20 +35,25 @@ const SymptomsRow = ({
       }
     } else {
       if (currentPage > 0) {
-        newPage = setCurrentPage - 1;
+        newPage = currentPage - 1;
       }
     }
     setCurrentPage(newPage);
   };
 
-  const symptomsContent = symptomList.map(symptom => (
-    <Symptom
-      label={symptom.name}
-      key={symptom.id}
-      hasSymptoms={selectedSymptom.id === symptom.id}
-      clickHandler={() => selectSymptomHandler(symptom)}
-    />
-  ));
+  const symptomsContent = symptomList
+    .slice(
+      currentPage * SYMPTOM_PAGE_SIZE,
+      currentPage * SYMPTOM_PAGE_SIZE + SYMPTOM_PAGE_SIZE
+    )
+    .map(symptom => (
+      <Symptom
+        label={symptom.name}
+        key={symptom.id}
+        hasSymptoms={selectedSymptom.id === symptom.id}
+        clickHandler={() => selectSymptomHandler(symptom)}
+      />
+    ));
 
   return (
     <div className={classes.SymptomsRow}>
