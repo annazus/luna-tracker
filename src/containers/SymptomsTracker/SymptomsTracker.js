@@ -75,7 +75,7 @@ const SymptomsTracker = () => {
     await createUserSymptomDetail(
       client,
       dispatch,
-      "a090977a-2325-4681-aa1e-55dd821a7319",
+      "4cadcdbf-2a7d-4b79-a3fe-56db67c792ba",
       symptomDetailId,
       state.selectedDate
     );

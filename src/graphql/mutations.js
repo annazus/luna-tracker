@@ -1,5 +1,29 @@
 import gql from "graphql-tag";
 
+export const SIGNUP_MUTATION = gql`
+  mutation($name: String!, $email: String!, $password: String!) {
+    createUser(data: { name: $name, email: $email, password: $password }) {
+      user {
+        id
+        name
+      }
+      token
+    }
+  }
+`;
+
+export const LOGIN_MUTATION = gql`
+  mutation($email: String!, $password: String!) {
+    loginUser(data: { email: $email, password: $password }) {
+      user {
+        id
+        name
+      }
+      token
+    }
+  }
+`;
+
 export const CREATE_USER_SYMPTOM_DETAIL_MUTATION = gql`
   mutation($user: ID!, $symptomDetail: ID!, $date: String!) {
     createUserSymptomDetail(

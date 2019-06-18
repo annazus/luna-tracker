@@ -6,8 +6,11 @@ import {
   SET_LOADED,
   SET_LOADING,
   DELETE_USER_SYMPTOM_DETAIL,
-  ADD_USER_SYMPTOM_DETAIL
-} from "../actions/actions";
+  ADD_USER_SYMPTOM_DETAIL,
+  LOGIN_RESPONSE,
+  SIGNUP_RESPONSE,
+  LOGOUT
+} from "../actions/";
 
 // const context = createContext({
 //     trackedSymptoms: [],
@@ -58,6 +61,11 @@ const reducer = (state, { type, payload }) => {
       return { ...state, selectedDate: payload };
     case SELECT_SYMPTOM:
       return { ...state, selectedSymptom: payload };
+    case LOGIN_RESPONSE:
+    case SIGNUP_RESPONSE:
+      return { ...state, isAuth: true };
+    case LOGOUT:
+      return { ...state, isAuth: false };
     default:
       return state;
   }
