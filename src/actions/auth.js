@@ -46,6 +46,8 @@ const logout = dispatch => {
   dispatch({
     type: LOGOUT
   });
+  const client = getClient();
+  client.resetStore();
 };
 
 export { login, logout, signup };

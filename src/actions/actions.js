@@ -1,5 +1,5 @@
 import moment from "moment";
-
+import getClient from "../useClient";
 import { SYMPTOMS_QUERY, USER_SYMPTOMS_QUERY } from "../graphql/queries";
 import {
   CREATE_USER_SYMPTOM_DETAIL_MUTATION,
@@ -28,7 +28,8 @@ const setLoaded = dispatch => {
 const setLoading = dispatch => {
   dispatch({ type: SET_LOADING });
 };
-const fetchSymptoms = async (client, dispatch) => {
+const fetchSymptoms = async dispatch => {
+  const client = getClient();
   try {
     setLoading(dispatch);
     const symptoms = await client.query({
@@ -46,7 +47,9 @@ const fetchSymptoms = async (client, dispatch) => {
   }
 };
 
-const fetchUserSymptomDetails = async (client, dispatch) => {
+const fetchUserSymptomDetails = async dispatch => {
+  const client = getClient();
+
   try {
     const symptomDetails = await client.query({
       query: USER_SYMPTOMS_QUERY
@@ -58,17 +61,17 @@ const fetchUserSymptomDetails = async (client, dispatch) => {
     console.log(symptomDetails.data.userSymptomDetails);
   } catch (error) {
     console.log(error);
-    throw new Error("Error fetching symptoms");
   }
 };
 
 const createUserSymptomDetail = async (
-  client,
   dispatch,
   userId,
   symptomDetailId,
   date
 ) => {
+  const client = getClient();
+  console.log(client);
   try {
     const variables = {
       user: userId,
@@ -79,12 +82,12 @@ const createUserSymptomDetail = async (
       variables,
       mutation: CREATE_USER_SYMPTOM_DETAIL_MUTATION
     });
+    console.log(userSymptomDetail);
 
     dispatch({
       type: ADD_USER_SYMPTOM_DETAIL,
       payload: userSymptomDetail.data.createUserSymptomDetail
     });
-    console.log(userSymptomDetail);
 
     // return userSymptomDetail.data.userSymptomDetails;
   } catch (error) {
@@ -92,11 +95,9 @@ const createUserSymptomDetail = async (
   }
 };
 
-const deleteUserSymptomDetail = async (
-  client,
-  dispatch,
-  userSymptomDetailId
-) => {
+const deleteUserSymptomDetail = async (dispatch, userSymptomDetailId) => {
+  const client = getClient();
+
   try {
     const variables = {
       userSymptomDetailId: userSymptomDetailId

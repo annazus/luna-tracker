@@ -5,12 +5,15 @@ import App from "./App";
 import SymptomsContext from "./SymptomsContext";
 import reducer from "./reducers/reducer";
 import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter as Router } from "react-router-dom";
 const Root = () => {
   const initialState = useContext(SymptomsContext);
   const [state, dispatch] = useReducer(reducer, initialState);
   return (
     <SymptomsContext.Provider value={{ state, dispatch }}>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </SymptomsContext.Provider>
   );
 };

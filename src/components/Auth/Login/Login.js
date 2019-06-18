@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { Redirect } from "react-router-dom";
 import classes from "./Login.module.css";
 import SymptomsContext from "../../../SymptomsContext";
 import { login } from "../../../actions";
@@ -22,7 +23,9 @@ const Login = () => {
     console.log(loginForm);
     setShowTest(true);
   };
-  return (
+  return state.isAuth ? (
+    <Redirect to="/" />
+  ) : (
     <form className={classes.Login} onSubmit={onSubmitHandler}>
       <div className={classes.Row}>
         <label htmlFor="email" className={classes.Label}>

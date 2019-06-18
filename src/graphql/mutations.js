@@ -25,9 +25,9 @@ export const LOGIN_MUTATION = gql`
 `;
 
 export const CREATE_USER_SYMPTOM_DETAIL_MUTATION = gql`
-  mutation($user: ID!, $symptomDetail: ID!, $date: String!) {
+  mutation($symptomDetail: ID!, $date: String!) {
     createUserSymptomDetail(
-      data: { user: $user, symptomDetail: $symptomDetail, date: $date }
+      data: { symptomDetail: $symptomDetail, date: $date }
     ) {
       user {
         id

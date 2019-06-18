@@ -23,14 +23,12 @@ const SymptomsTracker = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const client = useClient();
-
   const getSymptoms = async () => {
-    await fetchSymptoms(client, dispatch);
+    await fetchSymptoms(dispatch);
     console.log("getSymptoms", state.trackedSymptoms);
   };
   const getUserSymptoms = async () => {
-    await fetchUserSymptomDetails(client, dispatch);
+    await fetchUserSymptomDetails(dispatch);
   };
 
   const getSelectedSymptomDetails = symptom => {
@@ -73,7 +71,6 @@ const SymptomsTracker = () => {
   const addSymptomDetail = async symptomDetailId => {
     console.log("addSymptomDetail", symptomDetailId);
     await createUserSymptomDetail(
-      client,
       dispatch,
       "4cadcdbf-2a7d-4b79-a3fe-56db67c792ba",
       symptomDetailId,
@@ -81,7 +78,7 @@ const SymptomsTracker = () => {
     );
   };
   const removeSymptomDetail = userSymptomDetailId => {
-    deleteUserSymptomDetail(client, dispatch, userSymptomDetailId);
+    deleteUserSymptomDetail(dispatch, userSymptomDetailId);
   };
   return (
     <main>

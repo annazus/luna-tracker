@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { Redirect } from "react-router-dom";
 import classes from "./Signup.module.css";
 import useClient from "../../../useClient";
 import SymptomsContext from "../../../SymptomsContext";
@@ -29,7 +30,9 @@ const Signup = () => {
     );
     console.log(signupform);
   };
-  return (
+  return state.isAuth ? (
+    <Redirect to="/" />
+  ) : (
     <form className={classes.Signup} onSubmit={onSubmitHandler}>
       <div className={classes.Row}>
         <label htmlFor="name" className={classes.Label}>
