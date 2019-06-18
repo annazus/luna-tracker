@@ -3,13 +3,14 @@ import MenuToggle from "../MenuToggle";
 import classes from "./Toolbar.module.css";
 import NavigationItems from "../NavigationItems";
 import Logo from "../Logo";
-const Toolbar = () => (
+const Toolbar = ({ isAuthenticated }) => (
   <header className={classes.Toolbar}>
     <MenuToggle />
     <Logo />
+    {console.log(isAuthenticated)}
 
     <nav className={classes.DesktopOnly}>
-      <NavigationItems />
+      <NavigationItems isAuthenticated={isAuthenticated} />
     </nav>
   </header>
 );

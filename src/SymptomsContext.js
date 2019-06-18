@@ -4,7 +4,8 @@ const context = createContext({
   trackedSymptoms: [],
   mySymptomHistory: [],
   selectedSymptom: "",
-  isLoading: false
+  isLoading: false,
+  isAuth: false
 });
 
 export { context as default };

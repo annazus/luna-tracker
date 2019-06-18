@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import classes from "./Signup.module.css";
-import useClient from "../../../useClient";
 import SymptomsContext from "../../../SymptomsContext";
 import { signup } from "../../../actions";
 const Signup = () => {
@@ -11,7 +10,6 @@ const Signup = () => {
     email: ""
   });
 
-  const client = useClient();
   const { state, dispatch } = useContext(SymptomsContext);
 
   const onChangeHandler = e => {
@@ -21,13 +19,7 @@ const Signup = () => {
 
   const onSubmitHandler = e => {
     e.preventDefault();
-    signup(
-      client,
-      dispatch,
-      signupform.name,
-      signupform.email,
-      signupform.password
-    );
+    signup(dispatch, signupform.name, signupform.email, signupform.password);
     console.log(signupform);
   };
   return state.isAuth ? (

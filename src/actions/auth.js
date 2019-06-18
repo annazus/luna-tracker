@@ -6,6 +6,7 @@ export const LOGOUT = "LOGOUT";
 
 const signup = async (dispatch, name, email, password) => {
   const client = getClient();
+
   const variables = {
     name,
     email,

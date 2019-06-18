@@ -10,7 +10,6 @@ const Login = () => {
   });
 
   const { state, dispatch } = useContext(SymptomsContext);
-  const [showTest, setShowTest] = useState(false);
 
   const onChangeHandler = e => {
     e.preventDefault();
@@ -21,7 +20,6 @@ const Login = () => {
     e.preventDefault();
     login(dispatch, loginForm.email, loginForm.password);
     console.log(loginForm);
-    setShowTest(true);
   };
   return state.isAuth ? (
     <Redirect to="/" />

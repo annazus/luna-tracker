@@ -5,7 +5,7 @@ import Layout from "./components/Layout";
 import Signup from "./components/Auth/Signup";
 import Login from "./components/Auth/Login";
 import Logout from "./components/Auth/Logout";
-
+import ProtectedRoute from "./components/ProtectedRoute";
 import { Switch, Route } from "react-router-dom";
 import SymptomsTracker from "./containers/SymptomsTracker";
 function App() {
@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <Layout>
         <Switch>
-          <Route path="/" exact component={SymptomsTracker} />
+          <ProtectedRoute path="/" exact component={SymptomsTracker} />
 
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
