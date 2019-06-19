@@ -1,5 +1,14 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Chart from "../../components/CorrelationChart";
+import {
+  fetchSymptoms,
+  fetchUserSymptomDetails,
+  selectSymptom,
+  setLoaded,
+  setLoading,
+  createUserSymptomDetail,
+  deleteUserSymptomDetail
+} from "../../actions/actions";
 const History = () => {
   const week = ["8/1", "8/2", "8/3", "8/4", "8/5", "8/6", "8/7"];
   const symptoms = [

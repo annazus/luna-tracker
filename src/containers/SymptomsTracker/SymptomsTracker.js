@@ -3,7 +3,7 @@ import WeekBar from "../../components/WeekBar";
 import SymptomsRow from "../../components/SymptomsRow";
 import SymptomDetails from "../../components/SymptomDetails";
 import Paper from "../../components/Paper";
-import useClient from "../../useClient";
+import WeekBarCalendar from "../../components/WeekBarCalendar";
 import SymptomsContext from "../../SymptomsContext";
 import {
   fetchSymptoms,
@@ -82,7 +82,9 @@ const SymptomsTracker = () => {
   };
   return (
     <main>
-      <WeekBar />
+      <WeekBar>
+        <WeekBarCalendar />
+      </WeekBar>
       {state.isLoading ? null : (
         <Paper>
           <SymptomsRow

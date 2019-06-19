@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
 import SymptomContext from "../../SymptomsContext";
-import DaySquare from "../DaySquare";
 import classes from "./WeekBar.module.css";
 import { selectDate } from "../../actions/actions";
-const WeekBar = () => {
+const WeekBar = ({ children }) => {
   const [today] = useState(moment().format("YYYYMMDD"));
 
   const [weekStartingDay, setWeekStartingDay] = useState(
@@ -22,6 +21,7 @@ const WeekBar = () => {
 
   const selectCurrentDateHandler = date => {
     selectDate(dispatch, date);
+    console.log(date);
   };
 
   const createCalendarHeader = weekStartingDay => {
@@ -44,6 +44,29 @@ const WeekBar = () => {
     return header;
   };
 
+  const createWeek = () =>
+    ["S", "M", "T", "W", "T", "F", "S"].map((item, i) => ({
+      key: i,
+      dayOfWeek: item,
+
+      month: moment(weekStartingDay)
+        .day(i)
+        .format("MMM"),
+      dayOfMonth: moment(weekStartingDay)
+        .day(i)
+        .format("D"),
+      isSelected: moment(state.selectedDate).isSame(
+        moment(weekStartingDay).day(i),
+        "day"
+      ),
+      isDisabled: moment(weekStartingDay)
+        .day(i)
+        .isAfter(today),
+      date: moment(weekStartingDay)
+        .day(i)
+        .format("YYYYMMDD")
+    }));
+
   const moveOneWeek = (forward = true) => {
     const days = forward ? 7 : -7;
     setWeekStartingDay(
@@ -62,33 +85,6 @@ const WeekBar = () => {
       return false;
     else return true;
   };
-
-  const content = () =>
-    ["S", "M", "T", "W", "T", "F", "S"].map((item, i) => {
-      return (
-        <DaySquare
-          key={i}
-          dayOfWeek={item}
-          month={moment(weekStartingDay)
-            .day(i)
-            .format("MMM")}
-          dayOfMonth={moment(weekStartingDay)
-            .day(i)
-            .format("D")}
-          isSelected={moment(state.selectedDate).isSame(
-            moment(weekStartingDay).day(i),
-            "day"
-          )}
-          isDisabled={moment(weekStartingDay)
-            .day(i)
-            .isAfter(today)}
-          clickHandler={selectCurrentDateHandler}
-          date={moment(weekStartingDay)
-            .day(i)
-            .format("YYYYMMDD")}
-        />
-      );
-    });
 
   return (
     <div className={classes.WeekBar}>
@@ -109,7 +105,11 @@ const WeekBar = () => {
           </button>
         ) : null}
       </div>
-      <div className={classes.WeekBarDays}> {content()}</div>
+      {React.cloneElement(children, {
+        today,
+        week: createWeek(),
+        selectCurrentDateHandler: selectCurrentDateHandler
+      })}
     </div>
   );
 };
