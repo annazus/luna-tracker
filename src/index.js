@@ -9,6 +9,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 const Root = () => {
   const initialState = useContext(SymptomsContext);
   const [state, dispatch] = useReducer(reducer, initialState);
+  console.log("REACT_APP_GRAPHQL_SERVER", process.env.REACT_APP_GRAPHQL_SERVER);
   return (
     <SymptomsContext.Provider value={{ state, dispatch }}>
       <Router>

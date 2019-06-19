@@ -12,7 +12,7 @@ const getClient = () => {
     if (graphQLErrors) graphQLErrors.map(({ message }) => console.log(message));
   });
 
-  link = createHttpLink({ uri: "http://localhost:4000/" });
+  link = createHttpLink({ uri: process.env.REACT_APP_GRAPHQL_SERVER });
   const token = window.localStorage.getItem("token");
   if (token) {
     const authLink = setContext((_, { headers }) => ({
