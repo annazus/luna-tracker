@@ -6,9 +6,14 @@ const NavigationItems = ({ isAuthenticated }) => (
   <ul className={classes.NavigationItems}>
     {console.log(isAuthenticated)}
     {isAuthenticated ? (
-      <NavigationItem>
-        <Link to="/logout">Logout</Link>
-      </NavigationItem>
+      <>
+        <NavigationItem>
+          <Link to="/logout">Logout</Link>
+        </NavigationItem>
+        <NavigationItem>
+          <Link to="/history">History</Link>
+        </NavigationItem>
+      </>
     ) : (
       <NavigationItem>
         <Link to="/signup">Signup</Link>
