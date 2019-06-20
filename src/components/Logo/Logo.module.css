@@ -1,4 +1,18 @@
 .Logo {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+}
+.Logo img {
   height: 100%;
   width: auto;
+  margin-right: 10px;
+}
+
+.Title {
+  font-weight: bold;
+  color: #fa7c92;
+  font-style: italic;
 }
