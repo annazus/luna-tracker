@@ -23,7 +23,6 @@ const getClient = () => {
     }));
 
     link = errorLink.concat(authLink.concat(link));
-    console.log(link);
   }
 
   const client = new ApolloClient({

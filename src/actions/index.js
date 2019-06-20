@@ -1,17 +1,4 @@
-import {
-  selectDate,
-  selectSymptom,
-  fetchSymptoms,
-  fetchUserSymptomDetails,
-  createUserSymptomDetail,
-  deleteUserSymptomDetail,
-  setLoaded,
-  setLoading
-} from "./actions";
-
-import { login, logout, signup } from "./auth";
-
-import {
+export {
   FETCH_SYMPTOMS,
   FETCH_USER_SYMPTOM_DETAILS,
   SELECT_DATE,
@@ -22,7 +9,6 @@ import {
   ADD_USER_SYMPTOM_DETAIL
 } from "./actions";
 
-import { LOGIN_RESPONSE, SIGNUP_RESPONSE, LOGOUT } from "./auth";
 export {
   selectDate,
   selectSymptom,
@@ -31,19 +17,13 @@ export {
   createUserSymptomDetail,
   deleteUserSymptomDetail,
   setLoaded,
-  setLoading,
+  setLoading
+} from "./actions";
+
+export {
   login,
   logout,
   signup,
-  FETCH_SYMPTOMS,
-  FETCH_USER_SYMPTOM_DETAILS,
-  SELECT_DATE,
-  SELECT_SYMPTOM,
-  SET_LOADED,
-  SET_LOADING,
-  DELETE_USER_SYMPTOM_DETAIL,
-  ADD_USER_SYMPTOM_DETAIL,
-  LOGIN_RESPONSE,
-  SIGNUP_RESPONSE,
-  LOGOUT
-};
+  checkAuthState,
+  actionTypes as authActionTypes
+} from "./auth";

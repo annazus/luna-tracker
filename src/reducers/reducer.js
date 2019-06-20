@@ -7,9 +7,7 @@ import {
   SET_LOADING,
   DELETE_USER_SYMPTOM_DETAIL,
   ADD_USER_SYMPTOM_DETAIL,
-  LOGIN_RESPONSE,
-  SIGNUP_RESPONSE,
-  LOGOUT
+  authActionTypes
 } from "../actions/";
 
 // const context = createContext({
@@ -61,10 +59,9 @@ const reducer = (state, { type, payload }) => {
       return { ...state, selectedDate: payload };
     case SELECT_SYMPTOM:
       return { ...state, selectedSymptom: payload };
-    case LOGIN_RESPONSE:
-    case SIGNUP_RESPONSE:
+    case authActionTypes.AUTH_SUCCESS:
       return { ...state, isAuth: true };
-    case LOGOUT:
+    case authActionTypes.AUTH_LOGOUT:
       return { ...state, isAuth: false };
     default:
       return state;
