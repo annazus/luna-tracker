@@ -3,7 +3,7 @@ import moment from "moment";
 import SymptomContext from "../../SymptomsContext";
 import classes from "./WeekBar.module.css";
 import { selectDate } from "../../actions/actions";
-const WeekBar = ({ children }) => {
+const WeekBar = ({ children, updateWeek }) => {
   const [today] = useState(moment().format("YYYYMMDD"));
 
   const [weekStartingDay, setWeekStartingDay] = useState(
@@ -16,6 +16,11 @@ const WeekBar = ({ children }) => {
 
   useEffect(() => {
     selectCurrentDateHandler(today);
+    if (updateWeek) {
+      console.log("weekStartingDay", weekStartingDay);
+      updateWeek(createWeek());
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -74,6 +79,7 @@ const WeekBar = ({ children }) => {
         .days(days)
         .format("YYYYMMDD")
     );
+    updateWeek(createWeek());
   };
 
   const isForwardWeekButtonEnabled = () => {

@@ -11,7 +11,11 @@ import {
 
 const Chart = ({ week, symptoms }) => (
   <VictoryChart domainPadding={20} theme={VictoryTheme.material}>
-    <VictoryAxis tickValues={week} tickFormat={week} />
+    {console.log(week)}
+    <VictoryAxis
+      tickValues={week.map((d, i) => d.dayOfMonth)}
+      tickFormat={week.map((d, i) => d.dayOfMonth)}
+    />
     <VictoryStack>
       {symptoms.map(({ color, values }, i) => (
         <VictoryBar

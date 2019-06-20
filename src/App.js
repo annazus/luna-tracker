@@ -15,8 +15,8 @@ function App() {
     <div className="App">
       <Layout>
         <Switch>
-          <ProtectedRoute path="/" exact component={SymptomsTracker} />
-          <ProtectedRoute path="/history" component={SymptomsHistoryChart} />
+          <Route path="/" exact component={SymptomsTracker} />
+          <Route path="/history" component={SymptomsHistoryChart} />
 
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
