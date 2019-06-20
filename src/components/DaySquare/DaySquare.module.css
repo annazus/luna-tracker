@@ -27,11 +27,20 @@
   color: rgb(244, 248, 247);
     grey:rgb(175,175,175)
   lightgray: rbg(202, 206, 210);
-  green: rgb(121, 151, 34);
+  green: fc95bd;
 
   red: rgb(218, 34, 43);
   orange: rgb(252, 77, 6);
-  yellow: rgb(252, 184, 8); */
+  yellow: rgb(252, 184, 8); 
+  pink: rgb(252, 149, 189);*/
+  linen: #e9e9e9;
+  plaster: #cdcdcd;
+  freshwater: #88bbd6;
+  ice: #99d3df;
+  buttermilk: #fff7c0;
+  leaf: #36ab8c;
+  rain: #6ec4db;
+  salmon: #fa7c92;
 }
 
 .DayDisabled {
