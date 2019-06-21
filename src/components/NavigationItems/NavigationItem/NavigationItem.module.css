@@ -1,3 +1,22 @@
-.NavigationItem {
+.NavigationItem a {
   display: inline-block;
+  border: 1px solid #333;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 400;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.NavigationItem a {
+  text-decoration: none;
+  color: #333;
+}
+
+.NavigationItem a:hover {
+  text-decoration: none;
+  border-color: rgba(0, 0, 0, 0.9);
+  color: rgba(0, 0, 0, 0.9);
 }

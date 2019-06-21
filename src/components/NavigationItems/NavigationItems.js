@@ -8,10 +8,10 @@ const NavigationItems = ({ isAuthenticated }) => (
     {isAuthenticated ? (
       <>
         <NavigationItem>
-          <Link to="/logout">Logout</Link>
+          <Link to="/history">History</Link>
         </NavigationItem>
         <NavigationItem>
-          <Link to="/history">History</Link>
+          <Link to="/logout">Logout</Link>
         </NavigationItem>
       </>
     ) : null}

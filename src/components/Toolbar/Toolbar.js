@@ -7,8 +7,6 @@ const Toolbar = ({ isAuthenticated }) => (
   <header className={classes.Toolbar}>
     <MenuToggle />
     <Logo />
-    {console.log(isAuthenticated)}
-
     <nav className={classes.DesktopOnly}>
       <NavigationItems isAuthenticated={isAuthenticated} />
     </nav>
