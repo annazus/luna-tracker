@@ -4,10 +4,10 @@ import { logout } from "../../../actions";
 import SymptomsContext from "../../../SymptomsContext";
 
 const Logout = () => {
-  const { state, dispatch } = useContext(SymptomsContext);
+  const { dispatch } = useContext(SymptomsContext);
 
   logout(dispatch);
-  return <Redirect to="/login" />;
+  return <Redirect to="/auth" />;
 };
 
 export { Logout as default };

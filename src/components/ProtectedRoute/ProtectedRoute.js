@@ -7,7 +7,7 @@ const ProtectedRoute = props => {
 
   if (state.isAuth) {
     return <Route {...props} />;
-  } else return <Redirect to="/login" />;
+  } else return <Redirect to="/auth" />;
 };
 
 export { ProtectedRoute as default };

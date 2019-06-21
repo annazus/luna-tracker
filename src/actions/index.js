@@ -21,9 +21,8 @@ export {
 } from "./actions";
 
 export {
-  login,
+  authenticate,
   logout,
-  signup,
   checkAuthState,
   actionTypes as authActionTypes
 } from "./auth";

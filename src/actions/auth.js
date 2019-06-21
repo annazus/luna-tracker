@@ -14,6 +14,7 @@ const authStart = () => {
     type: actionTypes.AUTH_START
   };
 };
+
 const authFail = error => ({
   type: actionTypes.AUTH_FAIL,
   payload: error
@@ -27,58 +28,32 @@ const authLogout = () => ({
   type: actionTypes.AUTH_LOGOUT
 });
 
-const setAuthState = (dispatch, token) => {
-  console.log("setAuthState", token);
+const setAuthSuccess = (dispatch, token) => {
   window.localStorage.setItem("token", token);
   // window.localStorage.setItem("expirationDate", expirationDate);
   // const expiresIn = expirationDate - moment();
-  // console.log(expiresIn);
   // checkAuthTimeout(dispatch, expiresIn);
   dispatch(authSuccess());
 };
 
-const signup = async (dispatch, name, email, password) => {
+const authenticate = async (dispatch, isSignup, { name, email, password }) => {
   const client = getClient();
   dispatch(authStart());
   try {
-    const variables = {
-      name,
-      email,
-      password
-    };
-    const signupResponse = await client.mutate({
+    const variables = { name, email, password };
+    const authResponse = await client.mutate({
       variables,
-      mutation: SIGNUP_MUTATION
+      mutation: isSignup ? SIGNUP_MUTATION : LOGIN_MUTATION
     });
-    setAuthState(
+    setAuthSuccess(
       dispatch,
-      signupResponse.data.createUser.token,
+      isSignup
+        ? authResponse.data.createUser.token
+        : authResponse.data.loginUser.token,
       moment().add(7, "days")
     );
-    authSuccess(dispatch);
   } catch (error) {
-    dispatch(authFail(error));
-  }
-};
-
-const login = async (dispatch, email, password) => {
-  const client = getClient();
-  dispatch(authStart());
-  try {
-    const variables = {
-      email,
-      password
-    };
-    const loginResponse = await client.mutate({
-      variables,
-      mutation: LOGIN_MUTATION
-    });
-    console.log(loginResponse);
-    setAuthState(dispatch, loginResponse.data.loginUser.token);
-  } catch (error) {
-    console.log(error);
-
-    dispatch(authFail(error));
+    dispatch(authFail(error.message));
   }
 };
 
@@ -114,4 +89,4 @@ const checkAuthTimeout = (dispatch, expirationTime) => {
   }, expirationTime * 1000);
 };
 
-export { actionTypes, signup, login, logout, checkAuthState };
+export { actionTypes, authenticate, logout, checkAuthState };

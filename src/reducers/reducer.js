@@ -17,6 +17,7 @@ import {
 //     currentWeek: null
 //   });
 const reducer = (state, { type, payload }) => {
+  console.log(new Date().getTime(), type);
   switch (type) {
     case SET_LOADING:
       return { ...state, isLoaded: false };
@@ -59,10 +60,20 @@ const reducer = (state, { type, payload }) => {
       return { ...state, selectedDate: payload };
     case SELECT_SYMPTOM:
       return { ...state, selectedSymptom: payload };
+    case authActionTypes.AUTH_START:
+      return { ...state, error: null, loading: true };
+    case authActionTypes.AUTH_FAIL:
+      return { ...state, loading: false, error: payload };
     case authActionTypes.AUTH_SUCCESS:
-      return { ...state, isAuth: true };
+      return { ...state, isAuth: true, loading: false };
     case authActionTypes.AUTH_LOGOUT:
-      return { ...state, isAuth: false };
+      return {
+        isAuth: false,
+        trackedSymptoms: [],
+        mySymptomHistory: [],
+        selectedSymptom: "",
+        loading: false
+      };
     default:
       return state;
   }

@@ -14,11 +14,7 @@ const NavigationItems = ({ isAuthenticated }) => (
           <Link to="/history">History</Link>
         </NavigationItem>
       </>
-    ) : (
-      <NavigationItem>
-        <Link to="/signup">Signup</Link>
-      </NavigationItem>
-    )}
+    ) : null}
   </ul>
 );
 export { NavigationItems as default };
