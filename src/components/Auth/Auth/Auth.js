@@ -44,6 +44,11 @@ const Auth = () => {
   };
 
   const switchAuthModeHandler = isSignup => {
+    let newState = { ...authForm, error: "" };
+    if (!isSignup) {
+      newState = { ...newState, name: "" };
+    }
+    setauthForm(newState);
     setIsSignup(isSignup);
   };
 
