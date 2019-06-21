@@ -1,18 +1,20 @@
 .NavigationItem a {
   display: inline-block;
-  border: 1px solid #333;
-  padding: 8px 16px;
+  border: 1px solid #444;
+  padding: 4px 12px;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 15.8px;
   text-decoration: none;
   font-weight: 400;
   cursor: pointer;
-  margin-left: 10px;
+  margin-right: 16px;
+  font-weight: 400;
+  color: #444;
+  line-height: 20px;
 }
 
 .NavigationItem a {
   text-decoration: none;
-  color: #333;
 }
 
 .NavigationItem a:hover {
