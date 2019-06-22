@@ -83,7 +83,13 @@ const SymptomsTracker = () => {
   return (
     <main>
       <WeekBar>
-        <WeekBarCalendar />
+        {(today, week, selectCurrentDateHandler) => (
+          <WeekBarCalendar
+            today={today}
+            week={week}
+            selectCurrentDateHandler={selectCurrentDateHandler}
+          />
+        )}
       </WeekBar>
       {state.isLoading ? null : (
         <Paper>

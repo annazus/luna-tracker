@@ -3,7 +3,7 @@ import moment from "moment";
 import SymptomContext from "../../SymptomsContext";
 import classes from "./WeekBar.module.css";
 import { selectDate } from "../../actions/actions";
-const WeekBar = ({ children, updateWeek }) => {
+const WeekBar = ({ children }) => {
   const [today] = useState(moment().format("YYYYMMDD"));
 
   const [weekStartingDay, setWeekStartingDay] = useState(
@@ -16,10 +16,6 @@ const WeekBar = ({ children, updateWeek }) => {
 
   useEffect(() => {
     selectCurrentDateHandler(today);
-    if (updateWeek) {
-      console.log("weekStartingDay", weekStartingDay);
-      updateWeek(createWeek());
-    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -79,7 +75,6 @@ const WeekBar = ({ children, updateWeek }) => {
         .days(days)
         .format("YYYYMMDD")
     );
-    updateWeek(createWeek());
   };
 
   const isForwardWeekButtonEnabled = () => {
@@ -111,11 +106,7 @@ const WeekBar = ({ children, updateWeek }) => {
           </button>
         ) : null}
       </div>
-      {React.cloneElement(children, {
-        today,
-        week: createWeek(),
-        selectCurrentDateHandler: selectCurrentDateHandler
-      })}
+      {children(today, createWeek(), selectCurrentDateHandler)}
     </div>
   );
 };
