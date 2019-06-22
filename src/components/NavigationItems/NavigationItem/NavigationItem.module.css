@@ -22,3 +22,8 @@
   border-color: rgba(0, 0, 0, 0.9);
   color: rgba(0, 0, 0, 0.9);
 }
+
+.active {
+  background-color: aqua;
+  color: red;
+}

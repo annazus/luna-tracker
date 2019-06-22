@@ -1,17 +1,42 @@
 import React from "react";
 import NavigationItem from "./NavigationItem";
 import classes from "./NavigationItems.module.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 const NavigationItems = ({ isAuthenticated }) => (
   <ul className={classes.NavigationItems}>
     {console.log(isAuthenticated)}
     {isAuthenticated ? (
       <>
         <NavigationItem>
-          <Link to="/history">History</Link>
+          <NavLink
+            exact
+            to="/"
+            activeStyle={{
+              fontWeight: "bold"
+            }}
+          >
+            Track
+          </NavLink>
         </NavigationItem>
         <NavigationItem>
-          <Link to="/logout">Logout</Link>
+          <NavLink
+            to="/history"
+            activeStyle={{
+              fontWeight: "bold"
+            }}
+          >
+            History
+          </NavLink>
+        </NavigationItem>
+        <NavigationItem>
+          <NavLink
+            to="/logout"
+            activeStyle={{
+              fontWeight: "bold"
+            }}
+          >
+            Logout
+          </NavLink>
         </NavigationItem>
       </>
     ) : null}
