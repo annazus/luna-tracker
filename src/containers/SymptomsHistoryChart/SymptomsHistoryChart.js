@@ -31,15 +31,18 @@ const History = ({ today }) => {
         let label = "";
         sd.forEach(ls => {
           _val++;
-          label = label ? ls.symptomDetail.name : ", " + ls.symptomDetail.name;
+          label = label
+            ? label + ", " + ls.symptomDetail.name
+            : ls.symptomDetail.name;
         });
         //   if (_val > 0) {
         console.log(d.dayOfWeek);
-        _values.push({ day: d.key, symptoms: _val, label: s + ":" + label });
+        _values.push({ day: d.key, symptoms: _val, label: s + ": " + label });
         //   }
       });
       _symptoms.push({ symptom: s, values: _values, color: color[m] });
     });
+    console.log(_symptoms);
     return _symptoms;
   };
 

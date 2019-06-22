@@ -13,7 +13,7 @@ const Chart = ({ week, symptoms }) => (
   <VictoryChart domainPadding={20} theme={VictoryTheme.material}>
     {console.log(week)}
     <VictoryAxis
-      tickValues={week.map((d, i) => d.dayOfMonth)}
+      tickValues={week.map((d, i) => i)}
       tickFormat={week.map((d, i) => d.dayOfMonth)}
     />
     <VictoryStack>
