@@ -7,7 +7,8 @@ import {
   SET_LOADING,
   DELETE_USER_SYMPTOM_DETAIL,
   ADD_USER_SYMPTOM_DETAIL,
-  authActionTypes
+  authActionTypes,
+  uiActionTypes
 } from "../actions/";
 
 // const context = createContext({
@@ -19,6 +20,10 @@ import {
 const reducer = (state, { type, payload }) => {
   console.log(new Date().getTime(), type);
   switch (type) {
+    case uiActionTypes.SHOW_SIDEBAR:
+      return { ...state, sideBarIsVisible: true };
+    case uiActionTypes.HIDE_SIDEBAR:
+      return { ...state, sideBarIsVisible: false };
     case SET_LOADING:
       return { ...state, isLoaded: false };
     case SET_LOADED:

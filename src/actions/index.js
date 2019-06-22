@@ -26,3 +26,9 @@ export {
   checkAuthState,
   actionTypes as authActionTypes
 } from "./auth";
+
+export {
+  showSideBar,
+  hideSideBar,
+  actionTypes as uiActionTypes
+} from "./ui_actions";

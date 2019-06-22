@@ -5,7 +5,8 @@ const context = createContext({
   mySymptomHistory: [],
   selectedSymptom: "",
   isLoading: false,
-  isAuth: false
+  isAuth: false,
+  sideBarIsVisible: false
 });
 
 export { context as default };

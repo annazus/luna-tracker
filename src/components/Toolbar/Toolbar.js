@@ -3,9 +3,9 @@ import MenuToggle from "../MenuToggle";
 import classes from "./Toolbar.module.css";
 import NavigationItems from "../NavigationItems";
 import Logo from "../Logo";
-const Toolbar = ({ isAuthenticated }) => (
+const Toolbar = ({ isAuthenticated, showSideBarHandler }) => (
   <header className={classes.Toolbar}>
-    <MenuToggle />
+    <MenuToggle clickHandler={showSideBarHandler} />
     <Logo />
     <nav className={classes.DesktopOnly}>
       <NavigationItems isAuthenticated={isAuthenticated} />
