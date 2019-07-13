@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./SymptomDetail.module.css";
-const SymptomDetail = ({ label, selected, clickHandler, className }) => {
+const SymptomDetail = ({ label, selected, clickHandler, className, color }) => {
   const cardClasses = selected
     ? [classes.SymptomTraitCard, classes.SymptomTraitCardSelected]
     : [classes.SymptomTraitCard];
@@ -10,9 +10,22 @@ const SymptomDetail = ({ label, selected, clickHandler, className }) => {
     : [classes.SymptomTraitLabel];
   return (
     <div className={[classes.SymptomTrait, className].join(" ")}>
-      <div className={cardClasses.join(" ")} onClick={clickHandler}>
+      <div
+        className={cardClasses.join(" ")}
+        onClick={clickHandler}
+        style={
+          selected
+            ? { backgroundColor: color, borderColor: color }
+            : { borderColor: color }
+        }
+      >
         {selected ? <p className={classes.SymptomTraitDelete}>X</p> : null}
-        <p className={labelClasses.join(" ")}>{label}</p>
+        <p
+          className={labelClasses.join(" ")}
+          style={!selected ? { color: color } : {}}
+        >
+          {label}
+        </p>
       </div>
     </div>
   );

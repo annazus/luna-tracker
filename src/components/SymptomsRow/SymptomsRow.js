@@ -49,6 +49,7 @@ const SymptomsRow = ({
     .map(symptom => (
       <Symptom
         label={symptom.name}
+        color={symptom.color}
         key={symptom.id}
         hasSymptoms={selectedSymptom.id === symptom.id}
         clickHandler={() => selectSymptomHandler(symptom)}

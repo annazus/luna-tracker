@@ -3,6 +3,7 @@ import SymptomDetail from "../SymptomDetail";
 import classes from "./SymptomDetails.module.css";
 const SymptomDetails = ({
   symptomId,
+  color,
   symptomDetails,
   isExclusive,
   userSymptomDetails = [],
@@ -23,6 +24,7 @@ const SymptomDetails = ({
       console.log("usd", userDetailRecords[0]);
       return (
         <SymptomDetail
+          color={color}
           selected={selected}
           label={detail.name}
           key={detail.id}

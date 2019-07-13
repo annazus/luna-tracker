@@ -14,18 +14,21 @@ const History = ({ today }) => {
   };
 
   const getSymptomsForChart = (_week, myHistory) => {
-    const SymptomList = myHistory.map(usd => usd.symptomDetail.symptom.name);
+    const SymptomList = myHistory.map(usd => ({
+      symptom: usd.symptomDetail.symptom.name,
+      color: usd.symptomDetail.symptom.color
+    }));
     const SympSet = new Set(SymptomList);
     console.log("SympSet", SympSet);
 
     let _symptoms = [];
-    const color = ["red", "green", "blue", "brown", "yello", "orange"];
     SympSet.forEach((sym, m) => {
-      const s = sym;
       let _values = [];
       _week.forEach(d => {
         const sd = myHistory.filter(
-          usd => usd.date === d.date && usd.symptomDetail.symptom.name === sym
+          usd =>
+            usd.date === d.date &&
+            usd.symptomDetail.symptom.name === sym.symptom
         );
         let _val = 0;
         let label = "";
@@ -37,10 +40,18 @@ const History = ({ today }) => {
         });
         //   if (_val > 0) {
         console.log(d.dayOfWeek);
-        _values.push({ day: d.key, symptoms: _val, label: s + ": " + label });
+        _values.push({
+          day: d.key,
+          symptoms: _val,
+          label: sym.symptom + ": " + label
+        });
         //   }
       });
-      _symptoms.push({ symptom: s, values: _values, color: color[m] });
+      _symptoms.push({
+        symptom: sym.symptom,
+        values: _values,
+        color: sym.color
+      });
     });
     console.log(_symptoms);
     return _symptoms;

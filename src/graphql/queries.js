@@ -16,6 +16,7 @@ export const SYMPTOMS_QUERY = gql`
       id
       name
       isExclusive
+      color
       symptomDetails {
         id
         name
@@ -39,6 +40,7 @@ export const USER_SYMPTOMS_QUERY = gql`
         symptom {
           id
           name
+          color
         }
       }
     }

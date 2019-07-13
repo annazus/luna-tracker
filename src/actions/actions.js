@@ -1,4 +1,3 @@
-import moment from "moment";
 import getClient from "../useClient";
 import { SYMPTOMS_QUERY, USER_SYMPTOMS_QUERY } from "../graphql/queries";
 import {

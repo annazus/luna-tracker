@@ -6,15 +6,17 @@ import {
   VictoryBar,
   VictoryStack,
   VictoryTheme,
-  VictoryTooltip
+  VictoryTooltip,
+  VictoryLabel
 } from "victory";
 
 const Chart = ({ week, symptoms }) => (
-  <VictoryChart domainPadding={20} theme={VictoryTheme.material}>
+  <VictoryChart theme={VictoryTheme.material} domainPadding={{ x: 4 }}>
     {console.log(week)}
     <VictoryAxis
+      crossAxis
       tickValues={week.map((d, i) => i)}
-      tickFormat={week.map((d, i) => d.dayOfMonth)}
+      tickFormat={week.map((d, i) => `${d.dayOfMonth} ${d.month}`)}
     />
     <VictoryStack>
       {symptoms.map(({ color, values }, i) => (
@@ -28,6 +30,7 @@ const Chart = ({ week, symptoms }) => (
         />
       ))}
     </VictoryStack>
+    <VictoryLabel angle={90} verticalAnchor="middle" textAnchor="end" />
   </VictoryChart>
 );
 

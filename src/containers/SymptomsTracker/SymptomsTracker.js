@@ -101,6 +101,7 @@ const SymptomsTracker = () => {
           {state.selectedSymptom ? (
             <SymptomDetails
               symptomId={state.selectedSymptom.id}
+              color={state.selectedSymptom.color}
               isExclusive={state.selectedSymptom.isExclusive}
               symptomDetails={state.selectedSymptom.symptomDetails}
               userSymptomDetails={getUserDetails(
