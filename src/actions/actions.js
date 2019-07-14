@@ -63,17 +63,11 @@ const fetchUserSymptomDetails = async dispatch => {
   }
 };
 
-const createUserSymptomDetail = async (
-  dispatch,
-  userId,
-  symptomDetailId,
-  date
-) => {
+const createUserSymptomDetail = async (dispatch, symptomDetailId, date) => {
   const client = getClient();
   console.log(client);
   try {
     const variables = {
-      user: userId,
       symptomDetail: symptomDetailId,
       date: date
     };

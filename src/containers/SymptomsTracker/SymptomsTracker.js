@@ -31,16 +31,16 @@ const SymptomsTracker = () => {
     await fetchUserSymptomDetails(dispatch);
   };
 
-  const getSelectedSymptomDetails = symptom => {
-    console.log("symptomid", symptom);
-    if (symptom === "") return [];
-    const selectedNode = state.trackedSymptoms.find(
-      element => element.id === symptom
-    );
-    if (selectedNode) {
-      return selectedNode.symptomDetails;
-    } else return [];
-  };
+  // const getSelectedSymptomDetails = symptom => {
+  //   console.log("symptomid", symptom);
+  //   if (symptom === "") return [];
+  //   const selectedNode = state.trackedSymptoms.find(
+  //     element => element.id === symptom
+  //   );
+  //   if (selectedNode) {
+  //     return selectedNode.symptomDetails;
+  //   } else return [];
+  // };
 
   const selectSymptomHandler = symptom => {
     selectSymptom(dispatch, symptom);
@@ -70,9 +70,17 @@ const SymptomsTracker = () => {
 
   const addSymptomDetail = async symptomDetailId => {
     console.log("addSymptomDetail", symptomDetailId);
+    if (state.selectedSymptom.isExclusive) {
+      let symDetails = getUserDetails(
+        state.selectedDate,
+        state.selectedSymptom,
+        state.mySymptomHistory
+      );
+      symDetails.forEach(sd => deleteUserSymptomDetail(dispatch, sd.id));
+    }
+
     await createUserSymptomDetail(
       dispatch,
-      "4cadcdbf-2a7d-4b79-a3fe-56db67c792ba",
       symptomDetailId,
       state.selectedDate
     );
