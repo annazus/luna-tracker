@@ -11,7 +11,7 @@ import SymptomsContext from "./SymptomsContext";
 import { checkAuthState } from "./actions";
 
 function App() {
-  const { state, dispatch } = useContext(SymptomsContext);
+  const { dispatch } = useContext(SymptomsContext);
   useEffect(() => {
     checkAuthState(dispatch);
     // eslint-disable-next-line react-hooks/exhaustive-deps

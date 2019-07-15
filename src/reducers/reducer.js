@@ -18,7 +18,6 @@ import {
 //     currentWeek: null
 //   });
 const reducer = (state, { type, payload }) => {
-  console.log(new Date().getTime(), type);
   switch (type) {
     case uiActionTypes.SHOW_SIDEBAR:
       return { ...state, sideBarIsVisible: true };
@@ -42,19 +41,11 @@ const reducer = (state, { type, payload }) => {
     case FETCH_USER_SYMPTOM_DETAILS:
       return { ...state, mySymptomHistory: payload };
     case ADD_USER_SYMPTOM_DETAIL:
-      console.log("ADD_USER_SYMPTOM_DETAIL", payload);
-      console.log("new symptom historyL", [...state.mySymptomHistory, payload]);
       return {
         ...state,
         mySymptomHistory: [...state.mySymptomHistory, payload]
       };
     case DELETE_USER_SYMPTOM_DETAIL:
-      console.log("DELETE_USER_SYMPTOM_DETAIL", payload);
-      console.log(
-        "new symptom historyL",
-        state.mySymptomHistory.filter(usd => payload.id !== usd.id)
-      );
-
       return {
         ...state,
         mySymptomHistory: state.mySymptomHistory.filter(

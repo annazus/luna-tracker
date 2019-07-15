@@ -20,7 +20,6 @@ const History = ({ today }) => {
     // }));
     const SymptomList = myHistory.map(usd => usd.symptomDetail.symptom.name);
     const SympSet = new Set(SymptomList);
-    console.log("SympSet", SympSet);
 
     let _symptoms = [];
     SympSet.forEach((sym, m) => {
@@ -38,7 +37,6 @@ const History = ({ today }) => {
             : ls.symptomDetail.name;
         });
         //   if (_val > 0) {
-        console.log(d.dayOfWeek);
         _values.push({
           day: d.key,
           symptoms: _val,
@@ -52,7 +50,6 @@ const History = ({ today }) => {
         color: state.trackedSymptoms.filter(s => s.name === sym)[0].color
       });
     });
-    console.log(_symptoms);
     return _symptoms;
   };
 

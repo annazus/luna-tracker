@@ -25,42 +25,18 @@ const SymptomsTracker = () => {
 
   const getSymptoms = async () => {
     await fetchSymptoms(dispatch);
-    console.log("getSymptoms", state.trackedSymptoms);
   };
   const getUserSymptoms = async () => {
     await fetchUserSymptomDetails(dispatch);
   };
 
-  // const getSelectedSymptomDetails = symptom => {
-  //   console.log("symptomid", symptom);
-  //   if (symptom === "") return [];
-  //   const selectedNode = state.trackedSymptoms.find(
-  //     element => element.id === symptom
-  //   );
-  //   if (selectedNode) {
-  //     return selectedNode.symptomDetails;
-  //   } else return [];
-  // };
-
   const selectSymptomHandler = symptom => {
     selectSymptom(dispatch, symptom);
   };
-  console.log(
-    "tracked",
-    state.trackedSymptoms.length > 0 ? state.trackedSymptoms : []
-  );
 
   const getUserDetails = (date, symptom, symptomHistory) => {
-    console.log("getUserDetails", symptomHistory, date, symptom);
     if (!date || !symptom || !symptomHistory) return [];
     const userList = symptomHistory.filter(element => {
-      console.log(
-        "comparing",
-        element.date,
-        date,
-        element.symptomDetail.symptom.id,
-        symptom.id
-      );
       return (
         element.date === date && element.symptomDetail.symptom.id === symptom.id
       );
@@ -69,14 +45,12 @@ const SymptomsTracker = () => {
   };
 
   const addSymptomDetail = async symptomDetailId => {
-    console.log("addSymptomDetail", symptomDetailId);
     if (state.selectedSymptom.isExclusive) {
       let symDetails = getUserDetails(
         state.selectedDate,
         state.selectedSymptom,
         state.mySymptomHistory
       );
-      console.log("symDetails", symDetails);
       symDetails.forEach(sd => deleteUserSymptomDetail(dispatch, sd.id));
     }
 

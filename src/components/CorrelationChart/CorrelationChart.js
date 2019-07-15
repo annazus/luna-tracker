@@ -12,7 +12,6 @@ import {
 
 const Chart = ({ week, symptoms }) => (
   <VictoryChart theme={VictoryTheme.material} domainPadding={{ x: 4 }}>
-    {console.log(week)}
     <VictoryAxis
       crossAxis
       tickValues={week.map((d, i) => i)}

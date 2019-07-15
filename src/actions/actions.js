@@ -36,8 +36,6 @@ const fetchSymptoms = async dispatch => {
     });
     dispatch({ type: FETCH_SYMPTOMS, payload: symptoms.data.symptoms });
     setLoaded(dispatch);
-
-    console.log("FETCH_SYMPTOMS", symptoms);
   } catch (error) {
     setLoaded(dispatch);
 
@@ -57,7 +55,6 @@ const fetchUserSymptomDetails = async dispatch => {
       type: FETCH_USER_SYMPTOM_DETAILS,
       payload: symptomDetails.data.userSymptomDetails
     });
-    console.log("userSymptomDetails", symptomDetails.data.userSymptomDetails);
   } catch (error) {
     console.log(error);
   }
@@ -65,7 +62,6 @@ const fetchUserSymptomDetails = async dispatch => {
 
 const createUserSymptomDetail = async (dispatch, symptomDetailId, date) => {
   const client = getClient();
-  console.log(client);
   try {
     const variables = {
       symptomDetail: symptomDetailId,
@@ -75,7 +71,6 @@ const createUserSymptomDetail = async (dispatch, symptomDetailId, date) => {
       variables,
       mutation: CREATE_USER_SYMPTOM_DETAIL_MUTATION
     });
-    console.log(userSymptomDetail);
 
     dispatch({
       type: ADD_USER_SYMPTOM_DETAIL,
@@ -95,13 +90,11 @@ const deleteUserSymptomDetail = async (dispatch, userSymptomDetailId) => {
     const variables = {
       userSymptomDetailId: userSymptomDetailId
     };
-    console.log("deleteUserSymptomDetail", userSymptomDetailId);
 
     const userSymptomDetail = await client.mutate({
       mutation: DELETE_USER_SYMPTOM_DETAIL_MUTATION,
       variables
     });
-    console.log(userSymptomDetail);
     dispatch({
       type: DELETE_USER_SYMPTOM_DETAIL,
       payload: userSymptomDetail.data.deleteUserSymptomDetail
