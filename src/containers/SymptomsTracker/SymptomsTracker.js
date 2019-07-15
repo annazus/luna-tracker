@@ -76,6 +76,7 @@ const SymptomsTracker = () => {
         state.selectedSymptom,
         state.mySymptomHistory
       );
+      console.log("symDetails", symDetails);
       symDetails.forEach(sd => deleteUserSymptomDetail(dispatch, sd.id));
     }
 

@@ -14,10 +14,11 @@ const History = ({ today }) => {
   };
 
   const getSymptomsForChart = (_week, myHistory) => {
-    const SymptomList = myHistory.map(usd => ({
-      symptom: usd.symptomDetail.symptom.name,
-      color: usd.symptomDetail.symptom.color
-    }));
+    // const SymptomList = myHistory.map(usd => ({
+    //   symptom: usd.symptomDetail.symptom.name,
+    //   color: usd.symptomDetail.symptom.color
+    // }));
+    const SymptomList = myHistory.map(usd => usd.symptomDetail.symptom.name);
     const SympSet = new Set(SymptomList);
     console.log("SympSet", SympSet);
 
@@ -26,9 +27,7 @@ const History = ({ today }) => {
       let _values = [];
       _week.forEach(d => {
         const sd = myHistory.filter(
-          usd =>
-            usd.date === d.date &&
-            usd.symptomDetail.symptom.name === sym.symptom
+          usd => usd.date === d.date && usd.symptomDetail.symptom.name === sym
         );
         let _val = 0;
         let label = "";
@@ -43,14 +42,14 @@ const History = ({ today }) => {
         _values.push({
           day: d.key,
           symptoms: _val,
-          label: sym.symptom + ": " + label
+          label: sym + ": " + label
         });
         //   }
       });
       _symptoms.push({
-        symptom: sym.symptom,
+        symptom: sym,
         values: _values,
-        color: sym.color
+        color: state.trackedSymptoms.filter(s => s.name === sym)[0].color
       });
     });
     console.log(_symptoms);

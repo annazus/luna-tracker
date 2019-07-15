@@ -57,7 +57,7 @@ const fetchUserSymptomDetails = async dispatch => {
       type: FETCH_USER_SYMPTOM_DETAILS,
       payload: symptomDetails.data.userSymptomDetails
     });
-    console.log(symptomDetails.data.userSymptomDetails);
+    console.log("userSymptomDetails", symptomDetails.data.userSymptomDetails);
   } catch (error) {
     console.log(error);
   }
