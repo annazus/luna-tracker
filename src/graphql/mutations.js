@@ -8,10 +8,22 @@ export const SIGNUP_MUTATION = gql`
         name
       }
       token
+      expiresInSeconds
     }
   }
 `;
-
+export const EXTEND_TOKEN_MUTATION = gql`
+  mutation {
+    extendToken {
+      user {
+        id
+        name
+      }
+      token
+      expiresInSeconds
+    }
+  }
+`;
 export const LOGIN_MUTATION = gql`
   mutation($email: String!, $password: String!) {
     loginUser(data: { email: $email, password: $password }) {
@@ -20,6 +32,7 @@ export const LOGIN_MUTATION = gql`
         name
       }
       token
+      expiresInSeconds
     }
   }
 `;

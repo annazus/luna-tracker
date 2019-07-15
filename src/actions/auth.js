@@ -1,5 +1,9 @@
 import moment from "moment";
-import { LOGIN_MUTATION, SIGNUP_MUTATION } from "../graphql/mutations";
+import {
+  LOGIN_MUTATION,
+  SIGNUP_MUTATION,
+  EXTEND_TOKEN_MUTATION
+} from "../graphql/mutations";
 import getClient from "../useClient";
 
 const actionTypes = {
@@ -28,11 +32,13 @@ const authLogout = () => ({
   type: actionTypes.AUTH_LOGOUT
 });
 
-const setAuthSuccess = (dispatch, token) => {
+const setAuthSuccess = (dispatch, token, expiresInSeconds) => {
   window.localStorage.setItem("token", token);
-  // window.localStorage.setItem("expirationDate", expirationDate);
-  // const expiresIn = expirationDate - moment();
-  // checkAuthTimeout(dispatch, expiresIn);
+  window.localStorage.setItem("expiresInSeconds", expiresInSeconds);
+  const expirationDate = moment().add(expiresInSeconds, "seconds");
+  window.localStorage.setItem("expirationDate", expirationDate);
+
+  checkAuthTimeout(dispatch, expiresInSeconds);
   dispatch(authSuccess());
 };
 
@@ -50,7 +56,9 @@ const authenticate = async (dispatch, isSignup, { name, email, password }) => {
       isSignup
         ? authResponse.data.createUser.token
         : authResponse.data.loginUser.token,
-      moment().add(7, "days")
+      isSignup
+        ? authResponse.data.createUser.expiresInSeconds
+        : authResponse.data.loginUser.expiresInSeconds
     );
   } catch (error) {
     dispatch(authFail(error.message));
@@ -60,7 +68,9 @@ const authenticate = async (dispatch, isSignup, { name, email, password }) => {
 const logout = dispatch => {
   const client = getClient();
   localStorage.removeItem("token");
+  localStorage.removeItem("expiresInSeconds");
   localStorage.removeItem("expirationDate");
+
   client.resetStore();
   dispatch(authLogout());
 };
@@ -72,9 +82,7 @@ const checkAuthState = dispatch => {
   } else {
     const expirationDate = moment(localStorage.getItem("expirationDate"));
     if (expirationDate <= moment()) {
-      const expiresIn = expirationDate - new Date();
       logout(dispatch);
-      checkAuthTimeout(dispatch, expiresIn);
     } else {
       dispatch({
         type: actionTypes.AUTH_SUCCESS
@@ -83,10 +91,10 @@ const checkAuthState = dispatch => {
   }
 };
 
-const checkAuthTimeout = (dispatch, expirationTime) => {
+const checkAuthTimeout = (dispatch, expiresInSeconds) => {
   setTimeout(() => {
     logout(dispatch);
-  }, expirationTime * 1000);
+  }, expiresInSeconds * 1000);
 };
 
 export { actionTypes, authenticate, logout, checkAuthState };
